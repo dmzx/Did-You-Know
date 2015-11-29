@@ -13,7 +13,7 @@ class didyouknow_info
 {
 	function module()
 	{
-		 return array(
+		return array(
 			'filename'		=> '\dmzx\didyouknow\acp\didyouknow_module',
 			'title'			=> 'DYK_TITLE',
 			'modes'			=> array(
