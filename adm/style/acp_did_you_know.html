@@ -1,0 +1,209 @@
+<!-- INCLUDECSS css/didyouknowacp.css -->
+<!-- INCLUDE overall_header.html -->
+<!-- INCLUDEJS editor.js -->
+<a name="maincontent"></a>
+
+<!-- IF S_EDIT_WORD or S_ADD_WORD -->
+
+	<script type="text/javascript">
+	// <![CDATA[
+
+		var form_name = 'postform';
+		var text_name = 'message';
+
+		// Define the bbCode tags
+		var bbcode = new Array();
+		var bbtags = new Array('[b]','[/b]','[i]','[/i]','[u]','[/u]','[quote]','[/quote]','[code]','[/code]','[list]','[/list]','[list=]','[/list]','[img]','[/img]','[url]','[/url]','[flash=]', '[/flash]','[size=]','[/size]'<!-- BEGIN custom_tags -->, {custom_tags.BBCODE_NAME}<!-- END custom_tags -->);
+		var imageTag = false;
+
+		// Helpline messages
+		var help_line = {
+			b: '{LA_BBCODE_B_HELP}',
+			i: '{LA_BBCODE_I_HELP}',
+			u: '{LA_BBCODE_U_HELP}',
+			q: '{LA_BBCODE_Q_HELP}',
+			c: '{LA_BBCODE_C_HELP}',
+			l: '{LA_BBCODE_L_HELP}',
+			o: '{LA_BBCODE_O_HELP}',
+			p: '{LA_BBCODE_P_HELP}',
+			w: '{LA_BBCODE_W_HELP}',
+			s: '{LA_BBCODE_S_HELP}',
+			f: '{LA_BBCODE_F_HELP}',
+			e: '{LA_BBCODE_E_HELP}',
+			d: '{LA_BBCODE_D_HELP}',
+			t: '{LA_BBCODE_T_HELP}',
+			tip: '{L_STYLES_TIP}'
+			<!-- BEGIN custom_tags -->
+				,cb_{custom_tags.BBCODE_ID}: '{custom_tags.A_BBCODE_HELPLINE}'
+			<!-- END custom_tags -->
+		}
+
+	// ]]>
+	</script>
+
+	<a href="{U_BACK}" style="float: {S_CONTENT_FLOW_END};">&laquo; {L_BACK}</a>
+
+	<h1>{L_ACP_DYK_TITLE}</h1>
+
+	<p>{L_ACP_DYK_EXPLAIN_EDIT}</p>
+
+	<form id="postform" action="{U_ACTION}" method="post" enctype="multipart/form-data">
+	<fieldset>
+		<legend>{L_LANGUAGE_SET_SETTINGS}</legend>
+		<dl>
+			<dt><label for="word">{L_LANGUAGE_SET}</label><br /><span>{L_LANGUAGE_SET_EXPLAIN}</span></dt>
+			<dd>
+				<select name="lang_iso">
+					<option<!-- IF S_SORT_KEY == 'image_time' --> selected="selected"<!-- ENDIF --> value='default'>{L_LANGUAGE_SET_DEFAULT}</option>
+					<!-- BEGIN lang -->
+						<option<!-- IF lang.LANG_ISO == LANGUAGE --> selected="selected"<!-- ENDIF --> value='{lang.LANG_ISO}'>{lang.LANG_NAME}</option>
+					<!-- END lang -->
+				</select>
+			</dd>
+		</dl>
+	</fieldset>
+
+	<fieldset>
+		<legend><!-- IF S_ADD_WORD -->{L_ADD_DYK}<!-- ELSE -->{L_EDIT_DYK}<!-- ENDIF --></legend>
+		<div id="format-buttons">
+			<p><input type="text" class="text full" style="border: 0; background: none;" name="helpbox" value="{L_STYLES_TIP}" /></p>
+			<input type="button" class="button2" accesskey="b" name="addbbcode0" value=" B " style="font-weight:bold; width: 30px;" onclick="bbstyle(0)" onmouseover="helpline('b')" />
+			<input type="button" class="button2" accesskey="i" name="addbbcode2" value=" i " style="font-style:italic; width: 30px;" onclick="bbstyle(2)" onmouseover="helpline('i')" />
+			<input type="button" class="button2" accesskey="u" name="addbbcode4" value=" u " style="text-decoration: underline; width: 30px;" onclick="bbstyle(4)" onmouseover="helpline('u')" />
+			<input type="button" class="button2" accesskey="l" name="addbbcode10" value="List" style="width: 40px" onclick="bbstyle(10)" onmouseover="helpline('l')" />
+			<input type="button" class="button2" accesskey="o" name="addbbcode12" value="List=" style="width: 40px" onclick="bbstyle(12)" onmouseover="helpline('o')" />
+			<input type="button" class="button2" accesskey="t" name="addlitsitem" value="[*]" style="width: 40px" onclick="bbstyle(-1)" onmouseover="helpline('e')" />
+			<input type="button" class="button2" accesskey="p" name="addbbcode14" value="Img" style="width: 40px" onclick="bbstyle(14)" onmouseover="helpline('p')" />
+			<input type="button" class="button2" accesskey="w" name="addbbcode16" value="URL" style="text-decoration: underline; width: 40px" onclick="bbstyle(16)" onmouseover="helpline('w')" />
+			<input type="button" class="button2" accesskey="d" name="addbbcode18" value="Flash" onclick="bbstyle(18)" onmouseover="helpline('d')" />
+
+			{L_FONT_SIZE}:
+			<select name="addbbcode20" onchange="bbfontstyle('[size=' + this.form.addbbcode20.options[this.form.addbbcode20.selectedIndex].value + ']', '[/size]');this.form.addbbcode20.selectedIndex = 2;" title="{L_FONT_SIZE}" onmouseover="helpline('f')">
+				<option value="50">{L_FONT_TINY}</option>
+				<option value="85">{L_FONT_SMALL}</option>
+				<option value="100" selected="selected">{L_FONT_NORMAL}</option>
+				<option value="150">{L_FONT_LARGE}</option>
+				<option value="200">{L_FONT_HUGE}</option>
+			</select>
+
+			<!-- IF .custom_tags -->
+			<div style="padding-top: 5px;">
+				<!-- BEGIN custom_tags -->
+					<input type="button" class="button2" name="addbbcode{custom_tags.BBCODE_ID}" value="{custom_tags.BBCODE_TAG}" onclick="bbstyle({custom_tags.BBCODE_ID})"<!-- IF custom_tags.BBCODE_HELPLINE !== '' --> onmouseover="helpline('cb_{custom_tags.BBCODE_ID}')"<!-- ENDIF --> />
+				<!-- END custom_tags -->
+			</div>
+			<!-- ENDIF -->
+
+		</div>
+
+		<div style="float: left; width: 60%;">
+			<script type="text/javascript">
+					// <![CDATA[
+						colorPalette('h', 14, 12);
+					// ]]>
+			</script>
+		</div>
+
+		<div style="padding-left: 10px; float: left; width: 35%;">
+		<!-- BEGIN smiley -->
+				<a href="#" onclick="insert_text('{smiley.A_SMILEY_CODE}', true); return false;"><img src="{smiley.SMILEY_IMG}" width="{smiley.SMILEY_WIDTH}" height="{smiley.SMILEY_HEIGHT}" alt="{smiley.SMILEY_CODE}" title="{smiley.SMILEY_DESC}" /></a>
+		<!-- END smiley -->
+			<!-- IF S_SHOW_SMILEY_LINK -->
+			<br /><label><a href="{U_MORE_SMILIES}" onclick="popup(this.href, 300, 250, '_phpbbsmilies'); return false;">{L_MORE_SMILIES}</a></label>
+			<!-- ENDIF -->
+			<!-- {U_MORE_SMILIES} -->
+		</div>
+
+		<textarea id="word" name="message" style="width: 99%;" rows="8" cols="50">{WORD}</textarea>
+
+		<label><input type="checkbox" class="radio" name="parse_bbcode"<!-- IF S_BBCODE_CHECKED --> checked="checked"<!-- ENDIF --> /> {L_PARSE_BBCODE}</label>
+		<label><input type="checkbox" class="radio" name="parse_smilies"<!-- IF S_SMILIES_CHECKED --> checked="checked"<!-- ENDIF --> /> {L_PARSE_SMILIES}</label>
+		<label><input type="checkbox" class="radio" name="parse_urls"<!-- IF S_URLS_CHECKED --> checked="checked"<!-- ENDIF --> /> {L_PARSE_URLS}</label>
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<legend>{L_SUBMIT}</legend>
+			{S_HIDDEN_FIELDS}
+			<input class="button1" type="submit" id="submit" name="save" value="{L_SUBMIT}" />&nbsp;
+			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+			{S_FORM_TOKEN}
+	</fieldset>
+	</form>
+
+<!-- ELSE -->
+
+	<h1 class="ExtensionName"><!-- IF META_DISPLAY_NAME -->{META_DISPLAY_NAME}<!-- ENDIF --></h1>
+<!-- IF S_VERSIONCHECK && S_UP_TO_DATE -->
+	<div class="description_bubble small_bubble" title="{UP_TO_DATE_MSG}">
+		<span class="description_name">{L_VERSION}</span>
+		<span class="description_value description_value_ok" id="meta_version">{META_VERSION}</span>
+	</div>
+	<!-- ELSE IF S_VERSIONCHECK && not S_UP_TO_DATE -->
+	<div class="description_bubble small_bubble" title="{UP_TO_DATE_MSG}">
+		<span class="description_name">{L_VERSION}</span>
+		<span class="description_value description_value_old" id="meta_version">{META_VERSION}</span>
+	</div>
+	<!-- ELSE -->
+	<div class="description_bubble small_bubble">
+		<span class="description_name">{L_VERSION}</span>
+		<span class="description_value" id="meta_version">{META_VERSION}</span>
+	</div>
+<!-- ENDIF -->
+<!-- IF S_VERSIONCHECK && not S_UP_TO_DATE -->
+	<!-- BEGIN updates_available -->
+		<fieldset>
+			<span class="requirements_title">{L_LATEST_VERSION}</span>
+			<div class="extension_latest_version_wrapper">
+				<strong class="extension_latest_version">{updates_available.current}</strong>
+				<!-- IF updates_available.download-->
+				<a href="{updates_available.download}" class="extension_author_link" title="{L_DOWNLOAD_LATEST}">{L_DOWNLOAD} {META_NAME} {LATEST_VERSION}</i></a>
+				<!-- ENDIF -->
+				<!-- IF updates_available.announcement -->
+				<a href="{updates_available.announcement}" class="extension_author_link" title="{L_ANNOUNCEMENT_TOPIC}">{L_RELEASE_ANNOUNCEMENT}</i></a>
+				<!-- ENDIF -->
+			</div>
+		</fieldset>
+	<!-- END updates_available -->
+<!-- ENDIF -->
+
+	<p>{L_ACP_DYK_EXPLAIN}</p>
+
+	<form id="acp_words" method="post" action="{U_ACTION}">
+
+	<fieldset class="tabulated">
+	<legend>{L_ACP_DYK_WORD}</legend>
+	<p class="quick">
+		{S_HIDDEN_FIELDS}
+		<input class="button2" name="add" type="submit" value="{L_ACP_DYK_NEW_WORD}" />
+	</p>
+
+	<table cellspacing="1">
+	<thead>
+	<tr>
+		<th>{L_ACP_DYK_WORD_ID}</th>
+		<th>{L_LANGUAGE_SET}</th>
+		<th style="text-align: center;">{L_ACP_DYK_WORD}</th>
+		<th style="text-align: center;">{L_ACTION}</th>
+	</tr>
+	</thead>
+	<tbody>
+	<!-- BEGIN words -->
+		<!-- IF words.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+		<td style="text-align: left; width: 10%;">{words.WORD_ID}</td>
+		<td style="text-align: left; width: 15%;">{words.LANGUAGE}</td>
+		<td style="text-align: center;">{words.WORD}</td>
+		<td style="text-align: center; width: 15%;">&nbsp;<a href="{words.U_EDIT}">{ICON_EDIT}</a>&nbsp;&nbsp;<a href="{words.U_DELETE}">{ICON_DELETE}</a>&nbsp;</td>
+	</tr>
+	<!-- BEGINELSE -->
+	<tr class="row3">
+		<td colspan="3">{L_ACP_NO_ITEMS}</td>
+	</tr>
+	<!-- END words -->
+	</tbody>
+	</table>
+	{S_FORM_TOKEN}
+	</fieldset>
+	</form>
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->

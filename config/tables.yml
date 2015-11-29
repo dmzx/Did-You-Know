@@ -1,0 +1,2 @@
+parameters:
+    dmzx.didyouknow.table.did.you.know: %core.table_prefix%did_you_know

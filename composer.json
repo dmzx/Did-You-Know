@@ -1,0 +1,35 @@
+{
+	"name": "dmzx/didyouknow",
+	"type": "phpbb-extension",
+	"description": "With this extension you can display texts in a small box at the top of the forum in a random order.",
+	"homepage": "http://www.dmzx-web.net",
+	"version": "1.0.3",
+	"time": "2015-10-28",
+	"keywords": ["phpbb", "extension", "didyouknow"],
+	"license": "GPL-2.0",
+	"authors": [
+		{
+			"name": "dmzx",
+			"homepage": "http://www.dmzx-web.net",
+			"email": "info@dmzx-web.net",
+			"role": "Extension Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.3.3"
+	},
+	"require-dev": {
+		"phpbb/epv": "dev-master"
+	},
+	"extra": {
+		"display-name": "Did You Know",
+		"soft-require": {
+			"phpbb/phpbb": ">=3.1.0,<3.2.*@dev"
+		},
+		"version-check": {
+			"host": "www.dmzx-web.net",
+			"directory": "/versions",
+			"filename": "didyouknow_version.json"
+		}
+	}
+}

@@ -1,0 +1,3 @@
+dmzx_didyouknow_controller:
+    path: /didyouknow
+    defaults: { _controller: dmzx.didyouknow.controller:handle_didyouknow }

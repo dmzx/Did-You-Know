@@ -1,0 +1,23 @@
+imports:
+    - { resource: tables.yml }
+services:
+    dmzx.didyouknow.listener:
+        class: dmzx\didyouknow\event\listener
+        arguments:
+            - @user
+            - @request
+            - @template
+            - @controller.helper
+            - @dbal.conn
+            - @auth
+            - %dmzx.didyouknow.table.did.you.know%
+        tags:
+            - { name: event.listener }
+    dmzx.didyouknow.controller:
+        class: dmzx\didyouknow\controller\main
+        arguments:
+            - @user
+            - @dbal.conn
+            - @request
+            - %core.root_path%
+            - %core.php_ext%                
