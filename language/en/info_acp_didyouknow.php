@@ -56,10 +56,10 @@ $lang = array_merge($lang, array(
 	'LANGUAGE_SET_DEFAULT'			=> 'Independent',
 	'LANGUAGE_SET_EXPLAIN'			=> 'Set here the language in which the text should be shown to the users.',
 	'LANGUAGE_SET_SETTINGS'			=> 'Language package settings',
-	'LOG_DYK_DELETE'				=> '<strong>"Did-You-Know?" text no. %s was deleted</strong>',
-	'LOG_DYK_SAVE'					=> '"Did-You-Know?" text no. %s was edited',
+	'LOG_DYK_DELETE'				=> '<strong>“Did-You-Know?” text no. %s was deleted</strong>',
+	'LOG_DYK_SAVE'					=> '“Did-You-Know?” text no. %s was edited',
 	'LOG_DYK_SAVE_NEW'				=> 'A new "Did-You-Know" text was added',
 
 	// Permission
-	'ACL_U_DID_YOU_KNOW'			=> 'Can manage "Did-You-Know?" texts',
+	'ACL_U_DID_YOU_KNOW'			=> 'Can manage “Did-You-Know?” texts',
 ));
