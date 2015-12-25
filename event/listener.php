@@ -65,6 +65,7 @@ class listener implements EventSubscriberInterface
 	{
 		return array(
 			'core.user_setup'						=> 'load_language_on_setup',
+			'core.permissions'						=> 'add_permission',
 			'core.page_header'						=> 'page_header',
 			'core.ucp_prefs_personal_data'			=> 'ucp_prefs_get_data',
 			'core.ucp_prefs_personal_update_data'	=> 'ucp_prefs_set_data',
@@ -79,6 +80,13 @@ class listener implements EventSubscriberInterface
 			'lang_set' => 'common',
 		);
 		$event['lang_set_ext'] = $lang_set_ext;
+	}
+	
+	public function add_permission($event)
+	{
+		$permissions = $event['permissions'];
+		$permissions['u_did_you_know'] = array('lang' => 'ACL_U_DID_YOU_KNOW', 'cat' => 'misc');
+		$event['permissions'] = $permissions;
 	}
 
 	public function page_header($event)
